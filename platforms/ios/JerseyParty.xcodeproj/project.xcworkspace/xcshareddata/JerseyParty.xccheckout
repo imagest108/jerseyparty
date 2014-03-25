@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+	<key>IDESourceControlProjectFavoriteDictionaryKey</key>
+	<false/>
+	<key>IDESourceControlProjectIdentifier</key>
+	<string>EE3D4ACD-17A9-4CCF-81A9-9915F509B807</string>
+	<key>IDESourceControlProjectName</key>
+	<string>JerseyParty</string>
+	<key>IDESourceControlProjectOriginsDictionary</key>
+	<dict>
+		<key>57F08D90-583C-4B03-8C3D-61AD8EEFCFDB</key>
+		<string>ssh://github.com/imagest108/jerseyparty.git</string>
+	</dict>
+	<key>IDESourceControlProjectPath</key>
+	<string>platforms/ios/JerseyParty.xcodeproj/project.xcworkspace</string>
+	<key>IDESourceControlProjectRelativeInstallPathDictionary</key>
+	<dict>
+		<key>57F08D90-583C-4B03-8C3D-61AD8EEFCFDB</key>
+		<string>../../../..</string>
+	</dict>
+	<key>IDESourceControlProjectURL</key>
+	<string>ssh://github.com/imagest108/jerseyparty.git</string>
+	<key>IDESourceControlProjectVersion</key>
+	<integer>110</integer>
+	<key>IDESourceControlProjectWCCIdentifier</key>
+	<string>57F08D90-583C-4B03-8C3D-61AD8EEFCFDB</string>
+	<key>IDESourceControlProjectWCConfigurations</key>
+	<array>
+		<dict>
+			<key>IDESourceControlRepositoryExtensionIdentifierKey</key>
+			<string>public.vcs.git</string>
+			<key>IDESourceControlWCCIdentifierKey</key>
+			<string>57F08D90-583C-4B03-8C3D-61AD8EEFCFDB</string>
+			<key>IDESourceControlWCCName</key>
+			<string>JerseyParty</string>
+		</dict>
+	</array>
+</dict>
+</plist>

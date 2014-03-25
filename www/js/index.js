@@ -21,6 +21,10 @@ var statusIndex;
 var isBlinking = false;
 var isPartyTime = false;
 var listItem;
+var i = 1;
+var drawSearchingLight;
+var nextClass;
+var tempClass;
 
 var currentValue = "";
 
@@ -46,6 +50,7 @@ var app = {
     {
         app.receivedEvent('deviceready');
         app.setupBluetooth();
+        app.displaySearchingMode();
     },
 
     // Update DOM on a Received Event
@@ -53,26 +58,71 @@ var app = {
     {
         console.log('Received Event: ' + id);
     },
+    displaySearchingMode: function(){
+      
+      $("body").addClass("png1");
+      drawSearchingLight = setInterval(animation,200);
+      function animation(){
+          if(i >= 12)
+          {
+           i = 0;
+           $("body").removeClass("png12");
+          }
+          tempClass = "png"+i;
+          i++;
+          nextClass = "png"+i;
+          $("body").addClass(nextClass).removeClass(tempClass); 
+          //console.log("nextClass: "+nextClass);
+          //var currentClassName = $("body").attr("class");
+          //console.log("current Class is : "+currentClassName);
+      }
+      // drawSearchingLight = function() 
+      // {
+      //   setTimeout(function() {
+      //     requestAnimationFrame(drawSearchingLight);
+      //     // Drawing code goes here
+      //     if(i >= 12)
+      //     {
+      //      i = 0;
+      //      $("body").removeClass("png12");
+      //     }
+      //     var tempClass = "png"+i;
+      //     i++;
+      //     var nextClass = "png"+i;
+      //     $("body").addClass(nextClass).removeClass(tempClass); 
+      //     //console.log("nextClass: "+nextClass);
+      //     var currentClassName = $("body").attr("class");
+      //     //console.log("current Class is : "+currentClassName);
+      //   },1000/fps);
+      // }
+      // drawSearchingLight();
+
+    },
 
     displayInstruction: function()
     {
+        $("#png").html("");
+        $("body").removeClass(nextClass);    
+        clearInterval(drawSearchingLight);
         //display instruction pages;
-        $("body").addClass("instruction");
-        var animationTimer = setInterval(animation,1000);
+        $("body").toggleClass("instruction");
+        var animationTimer = setInterval(animation,500);
         function animation()
         {
           $("body").toggleClass("secondstep");
         }
         var startTimer = setTimeout(app.startParty,5000);
+        clearTimeout(startTimer);
     },
 
     startParty: function()
     {
-        app.clear();
-        app.display("Let's start a party!");
+        //app.clear();
+        //app.display("Let's start a party!");
         app.watchAcceleration();
         isPartyTime = true;
         var startTimer = setTimeout(app.watchLightStatus,2000);
+        clearTimeout(startTimer);
     },
 
     display: function(message) 
@@ -95,7 +145,7 @@ var app = {
         app.clear();
         
         console.log("Watch light status for every second");
-        watchTimer = setInterval(checkCurrentStatus, 200);
+        watchTimer = setInterval(checkCurrentStatus, 0);
 
         $("body").removeClass("instruction").addClass("showtime");
                 
@@ -105,7 +155,7 @@ var app = {
             //console.log("checkCurrentStatus/ blinkingStatus :"+isBlinking);
             if(currentValue == "AQ==" && isBlinking == true)
             {
-                console.log("@@@@@@@@@@@@@@@ Turn Off @@@@@@@@@@@@@@@");
+                //console.log("@@@@@@@@@@@@@@@ Turn Off @@@@@@@@@@@@@@@");
                 $("body").toggleClass("blink");
                 bluetoothle.write(writeSuccess, writeError, {"value":"AA==","serviceAssignedNumber":"ff10","characteristicAssignedNumber":"ff11"});
                 //console.log("it's blinking!");
@@ -114,7 +164,7 @@ var app = {
             }
             else if(currentValue == "AA==" && isBlinking == false)
             {
-                console.log("@@@@@@@@@@@@@@@ Turn On @@@@@@@@@@@@@@@");
+                //console.log("@@@@@@@@@@@@@@@ Turn On @@@@@@@@@@@@@@@");
                 $("body").toggleClass("blink");
                 
                 bluetoothle.write(writeSuccess, writeError, {"value":"AQ==","serviceAssignedNumber":"ff10","characteristicAssignedNumber":"ff11"});
@@ -169,7 +219,7 @@ var app = {
 
         // taceh the accelerometer every 100ms: 
         var watchAccel = navigator.accelerometer.watchAcceleration(success, failure, {
-            frequency: 100
+            frequency: 10
         });
     },
 
@@ -193,24 +243,26 @@ var app = {
 
         function initializeSuccess(obj)
         {
-          if (obj.status == "initialized")
+         if (obj.status == "initialized")
           {
-            var address = window.localStorage.getItem(addressKey);
-            if (address == null)
-            {
+             
+            // var address = window.localStorage.getItem(addressKey);
+            // if (address == null)
+            // {
+            //     console.log("Bluetooth initialized successfully, starting scan for heart rate devices.");
+            //     var paramsObj = {"serviceAssignedNumbers":[heartRateServiceAssignedNumber]};
+            //     bluetoothle.startScan(startScanSuccess, startScanError, paramsObj);
+            // }
+            // else
+            // {
+            //     app.display("Connecting....");
+            //     connectDevice(address);
+      
+            // }
+            
                 console.log("Bluetooth initialized successfully, starting scan for heart rate devices.");
                 var paramsObj = {"serviceAssignedNumbers":[heartRateServiceAssignedNumber]};
                 bluetoothle.startScan(startScanSuccess, startScanError, paramsObj);
-            }
-            else
-            {
-                app.display("Connecting....");
-                connectDevice(address);
-      
-            }
-                // console.log("Bluetooth initialized successfully, starting scan for heart rate devices.");
-                // var paramsObj = {"serviceAssignedNumbers":[heartRateServiceAssignedNumber]};
-                // bluetoothle.startScan(startScanSuccess, startScanError, paramsObj);
 
           }
           else
@@ -244,7 +296,7 @@ var app = {
           else if (obj.status == "scanStarted")
           {
             console.log("Scan was started successfully, stopping in 10");
-            scanTimer = setTimeout(scanTimeout, 10000);
+            //scanTimer = setTimeout(scanTimeout, 10000);
           }
           else
           {
@@ -311,8 +363,8 @@ var app = {
               var paramsObj = {"serviceAssignedNumbers":[heartRateServiceAssignedNumber]};
               bluetoothle.services(servicesHeartSuccess, servicesHeartError, paramsObj);
               
-              app.clear();
-              app.display("Light connected.");
+              //app.clear();
+              //app.display("Light connected.");
   
             }
             else if (window.device.platform == androidPlatform)
@@ -324,8 +376,8 @@ var app = {
           }
           else if (obj.status == "connecting")
           {
-            app.clear();
-            app.display("Connecting....");
+            //app.clear();
+            //app.display("Connecting....");
             console.log("Connecting to : " + obj.name + " - " + obj.address);
           }
             else
@@ -444,8 +496,8 @@ var app = {
                 console.log(obj.serviceAssignedNumber);    
                 console.log("Original read value: "+obj.value);    
                 currentValue = obj.value;
-                
-                var instructionTimer = setTimeout(app.displayInstruction, 4000);       
+                $("#png").html("<img src='img/Text_Connected.png' />");
+                var instructionTimer = setTimeout(app.displayInstruction, 1000);       
             }
             else
             {
@@ -469,7 +521,7 @@ var app = {
             if (obj.status == "disconnected")
             {
                 console.log("Disconnect device");
-                app.display("Disconnected");
+                //app.display("Disconnected");
 
                 closeDevice();
             }

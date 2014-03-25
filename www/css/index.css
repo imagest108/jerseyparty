@@ -36,8 +36,8 @@ body {
         color-stop(0.51, #E4E4E4)
     );
     background-attachment:fixed;*/
-    background-color:#0170B0;  
-    color:#ffffff;
+/*    background-color:#0170B0;  
+    color:#ffffff;*/
     font-family:'HelveticaNeue-Light', 'HelveticaNeue', Helvetica, Arial, sans-serif;
     font-size:12px;
     height:100%;
@@ -48,23 +48,91 @@ body {
 }
 
 .instruction{
-
+    background-color:#0170B0; 
     background:url("../img/JP_fistUp.png") no-repeat; 
     background-size:100%;
 }
 .secondstep{
-
+    background-color:#0170B0; 
     background:url("../img/JP_fistDown.png") no-repeat; 
     background-size:100%;
 }
 
 .showtime{
+    background-color:#0170B0; 
     background:url("../img/JP_on.png") no-repeat; 
     background-size:100%; 
 }
 
 .blink{
+    background-color:#0170B0; 
     background:url("../img/JP_off.png") no-repeat; 
+    background-size:100%; 
+}
+
+.png1 {
+/*    background-color:#0170B0;*/
+    background:url("../img/Loading1-01.png") no-repeat;  
+    background-size:100%; 
+}
+
+.png2 {
+/*    background-color:#0170B0;*/
+    background:url("../img/Loading2-01.png") no-repeat;  
+    background-size:100%; 
+}
+
+.png3 {
+/*    background-color:#0170B0;*/
+    background:url("../img/Loading3-01.png") no-repeat;  
+    background-size:100%; 
+}
+
+.png4 {
+/*    background-color:#0170B0;*/
+    background:url("../img/Loading4-01.png") no-repeat;  
+    background-size:100%; 
+}
+
+.png5 {
+    background-color:#0170B0;
+    background:url("../img/Loading5-01.png") no-repeat;  
+    background-size:100%; 
+}
+
+.png6 {
+    background-color:#0170B0;
+    background:url("../img/Loading6-01.png") no-repeat;  
+    background-size:100%; 
+}
+.png7 {
+    background-color:#0170B0;
+    background:url("../img/Loading7-01.png") no-repeat;  
+    background-size:100%; 
+}
+.png8 {
+    background-color:#0170B0;
+    background:url("../img/Loading8-01.png") no-repeat;  
+    background-size:100%; 
+}
+.png9 {
+    background-color:#0170B0;
+    background:url("../img/Loading9-01.png") no-repeat;  
+    background-size:100%; 
+}
+.png10 {
+    background-color:#0170B0;
+    background:url("../img/Loading10-01.png") no-repeat;  
+    background-size:100%; 
+}
+.png11 {
+    background-color:#0170B0;
+    background:url("../img/Loading11-01.png") no-repeat;  
+    background-size:100%; 
+}
+.png12 {
+    background-color:#0170B0;
+    background:url("../img/Loading12-01.png") no-repeat;  
     background-size:100%; 
 }
 
@@ -107,24 +175,6 @@ ul {
     margin: 0px;
 }
 
-.event {
-    border-radius:4px;
-    -webkit-border-radius:4px;
-    color:#FFFFFF;
-    font-size:12px;
-    margin:0px 30px;
-    padding:2px 0px;
-}
-
-.event.listening {
-    background-color:#333333;
-    display:block;
-}
-
-.event.received {
-    background-color:#4B946A;
-    display:none;
-}
 
 @keyframes fade {
     from { opacity: 1.0; }
@@ -146,3 +196,10 @@ ul {
 #messageDiv {
     font-size: 24px;
 }
+img {
+    width: 100%;
+    height: 100%;
+}
+
+div#preload { display: none; }
+
