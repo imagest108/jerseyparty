@@ -41,6 +41,13 @@ module.exports = [
         "clobbers": [
             "window.bluetoothle"
         ]
+    },
+    {
+        "file": "plugins/org.apache.cordova.vibration/www/vibration.js",
+        "id": "org.apache.cordova.vibration.notification",
+        "merges": [
+            "navigator.notification"
+        ]
     }
 ];
 module.exports.metadata = 
@@ -49,7 +56,8 @@ module.exports.metadata =
     "org.apache.cordova.console": "0.2.7",
     "org.apache.cordova.device": "0.2.8",
     "org.apache.cordova.device-motion": "0.2.6",
-    "com.randdusing.bluetoothle": "1.0.0"
+    "com.randdusing.bluetoothle": "1.0.0",
+    "org.apache.cordova.vibration": "0.3.7"
 }
 // BOTTOM OF METADATA
 });

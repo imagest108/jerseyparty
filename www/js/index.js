@@ -58,9 +58,12 @@ var app = {
     {
         console.log('Received Event: ' + id);
     },
+
     displaySearchingMode: function(){
       
       $("body").addClass("png1");
+      $("#png").html("<img src='img/Text_Searching.png' />");
+                
       drawSearchingLight = setInterval(animation,200);
       function animation(){
           if(i >= 12)
@@ -72,35 +75,12 @@ var app = {
           i++;
           nextClass = "png"+i;
           $("body").addClass(nextClass).removeClass(tempClass); 
-          //console.log("nextClass: "+nextClass);
-          //var currentClassName = $("body").attr("class");
-          //console.log("current Class is : "+currentClassName);
       }
-      // drawSearchingLight = function() 
-      // {
-      //   setTimeout(function() {
-      //     requestAnimationFrame(drawSearchingLight);
-      //     // Drawing code goes here
-      //     if(i >= 12)
-      //     {
-      //      i = 0;
-      //      $("body").removeClass("png12");
-      //     }
-      //     var tempClass = "png"+i;
-      //     i++;
-      //     var nextClass = "png"+i;
-      //     $("body").addClass(nextClass).removeClass(tempClass); 
-      //     //console.log("nextClass: "+nextClass);
-      //     var currentClassName = $("body").attr("class");
-      //     //console.log("current Class is : "+currentClassName);
-      //   },1000/fps);
-      // }
-      // drawSearchingLight();
-
     },
 
     displayInstruction: function()
     {
+        app.watchAcceleration();
         $("#png").html("");
         $("body").removeClass(nextClass);    
         clearInterval(drawSearchingLight);
@@ -111,18 +91,22 @@ var app = {
         {
           $("body").toggleClass("secondstep");
         }
-        var startTimer = setTimeout(app.startParty,5000);
-        clearTimeout(startTimer);
+        //var startTimer = setTimeout(app.startParty,5000);
+        
     },
 
     startParty: function()
     {
         //app.clear();
-        //app.display("Let's start a party!");
-        app.watchAcceleration();
+        //app.display("Let's start a party!");     
         isPartyTime = true;
-        var startTimer = setTimeout(app.watchLightStatus,2000);
-        clearTimeout(startTimer);
+        app.watchLightStatus();
+        //var startTimer = setTimeout(app.watchLightStatus,2000);
+        $("#png").html("<img src='img/LetsParty.png' />");
+        var textTimeout = setTimeout(function(){
+          $("#png").html("");
+        },3000);
+        navigator.notification.vibrate(3000);
     },
 
     display: function(message) 
@@ -169,6 +153,7 @@ var app = {
                 
                 bluetoothle.write(writeSuccess, writeError, {"value":"AQ==","serviceAssignedNumber":"ff10","characteristicAssignedNumber":"ff11"});
                 //console.log("it's blinking!");
+                //navigator.notification.vibrate(1000);
                 currentValue = "AQ==";
             }
         }
@@ -201,12 +186,16 @@ var app = {
         function success(acceleration) 
         {
             //console.log("App is watching acceleration");
+            var previousAccel = acceleration.x; 
             if(isPartyTime)
             {
-                if(acceleration.x > 4) isBlinking = true;
-                else if(acceleration.x < 4)isBlinking = false;
-            }else{
-                console.log("It's not the party time yet!");
+                if(acceleration.x > 4) isBlinking = false;
+                else if(acceleration.x < 4)isBlinking = true;
+            }
+            else if(isPartyTime == false && acceleration.x > 7)
+            {
+                console.log("first fist pump!");
+                app.startParty();
             }
         }
 
@@ -496,6 +485,7 @@ var app = {
                 console.log(obj.serviceAssignedNumber);    
                 console.log("Original read value: "+obj.value);    
                 currentValue = obj.value;
+                $("#png").html("");
                 $("#png").html("<img src='img/Text_Connected.png' />");
                 var instructionTimer = setTimeout(app.displayInstruction, 1000);       
             }

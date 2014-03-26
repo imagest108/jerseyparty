@@ -31,6 +31,9 @@
     <feature name="Accelerometer">
         <param name="ios-package" value="CDVAccelerometer" />
     </feature>
+    <feature name="Vibration">
+        <param name="ios-package" value="CDVVibration" />
+    </feature>
     <name>JerseyParty</name>
     <description>
         A sample Apache Cordova application that responds to the deviceready event.
